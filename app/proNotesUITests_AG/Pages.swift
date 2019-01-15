@@ -85,13 +85,21 @@ class MainPage: Page {
     
     @discardableResult
     func deleteValidation(name: String) -> Self {
-        return XCTContext.runActivity(named: "Validate delete document with name '\(name)'") { _ in
+        XCTContext.runActivity(named: "Validate delete document with name '\(name)'") { _ in
             let documentCell = documentsList
-            XCTAssertFalse(documentCell[name].waitForExistence(timeout: 10), "Document wasn't deleted")
-            
+            if #available(iOS 10, *) {
+                XCTContext.runActivity(named: "iOS 10+ is active") { _ in
+                    XCTAssertFalse(documentCell[name].waitForExistence(timeout: 10), "Document wasn't deleted")
+                }
+            }
+            else {
+                XCTContext.runActivity(named: "iOS 9.3 is active") { _ in
+                    XCTAssertEqual(documentCell[name].isHittable, false, "Document wasn't deleted")
+                }
+            }
             log("Document was not found in main screen. Deleted.")
-            return self
         }
+        return self
     }
     
     @discardableResult
