@@ -85,22 +85,13 @@ class MainPage: Page {
     
     @discardableResult
     func deleteValidation(name: String) -> Self {
-        XCTContext.runActivity(named: "Validate delete document with name '\(name)'") { _ in
+        return XCTContext.runActivity(named: "Validate delete document with name '\(name)'") { _ in
             let documentCell = documentsList
-            if #available(iOS 10, *) {
-                XCTContext.runActivity(named: "iOS 10+ is active") { _ in
-                    XCTAssertFalse(documentCell[name].waitForExistence(timeout: 10), "Document wasn't deleted")
-                }
-            }
-            else {
-                XCTContext.runActivity(named: "iOS 9.3 is active") { _ in
-                    //sleep(3)
-                    XCTAssertFalse(documentCell[name].waitForExistence(timeout: 10), "Document wasn't deleted")
-                }
-            }
+            XCTAssertFalse(documentCell[name].waitForExistence(timeout: 10), "Document wasn't deleted")
+            
             log("Document was not found in main screen. Deleted.")
+            return self
         }
-        return self
     }
     
     @discardableResult
@@ -160,7 +151,6 @@ class MainPage: Page {
     }
     
     @discardableResult
-    @available(iOS 10,*)
     func createFewDocuments(count: Int) -> Self{
         XCTContext.runActivity(named: "Create \(count) document(s)") { _ in
             let array = [Int](1...count)
@@ -365,14 +355,12 @@ class DocumentPage: Page {
                 XCTContext.runActivity(named: "iOS 10+ is active") { _ in
                     XCTAssertFalse(leftPannelView.exists, "PageOverViewLeftConstaraint is shown")
                     XCTAssertFalse(settingsPannelView.exists, "SettingsViewController is shown")
-                
                 }
             }
             else {
                 XCTContext.runActivity(named: "iOS 9.3 is active") { _ in
                     XCTAssertFalse(settingsPannelView.isHittable, "SettingsViewController is hidden")
                     XCTAssertFalse(leftPannelView.isHittable, "PageOverViewLeftConstaraint is shown")
-                
                 }
             }
             log("Fullscreen is ON")
