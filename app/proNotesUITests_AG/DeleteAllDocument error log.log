@@ -1,0 +1,26 @@
+UI Test Activity: 
+Assertion Failure: <unknown>:0: Multiple matches found for "Note5" TextField.
+Sparse tree of matches:
+→Application, pid: 19835, label: 'proNotes'
+  ↳Window
+    ↳Other
+      ↳Other
+        ↳Other
+          ↳Other
+            ↳CollectionView
+              ↳Cell
+              ⋅ ↳Other
+              ⋅   ↳TextField, value: Note5
+              ↳Cell, Selected
+              ⋅ ↳Other
+              ⋅   ↳TextField, value: Note5
+              ↳Cell, Selected
+              ⋅ ↳Other
+              ⋅   ↳TextField, value: Note5
+              ↳Cell, Selected
+              ⋅ ↳Other
+              ⋅   ↳TextField, value: Note5
+              ↳Cell
+                ↳Other
+                  ↳TextField, value: Note5
+

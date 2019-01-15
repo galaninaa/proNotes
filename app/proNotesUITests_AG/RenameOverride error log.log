@@ -1,0 +1,36 @@
+UI Test Activity: 
+Assertion Failure: <unknown>:0: Neither element nor any descendant has keyboard focus. Event dispatch snapshot: TextField, identifier: 'note_title', value: Note6
+Element debug description:
+Attributes: TextField, {{340.5, 25.5}, {87.0, 33.0}}, identifier: 'note_title', value: Note6
+Element subtree:
+ →TextField, 0x7ff583ec1220, {{340.5, 25.5}, {87.0, 33.0}}, identifier: 'note_title', value: Note6
+Path to element:
+ →Application, pid: 19853, label: 'proNotes'
+  ↳Window (Main), {{0.0, 0.0}, {768.0, 1024.0}}
+   ↳Other, {{0.0, 0.0}, {768.0, 1024.0}}
+    ↳NavigationBar, {{0.0, 20.0}, {768.0, 44.0}}, identifier: 'proNotes.DocumentView'
+     ↳Other, {{340.5, 25.5}, {87.0, 33.0}}
+      ↳TextField, {{340.5, 25.5}, {87.0, 33.0}}, identifier: 'note_title', value: Note6
+Query chain:
+ →Find: Target Application 'lt.com.proNotes'
+  Output: {
+    Application, pid: 19853, label: 'proNotes'
+  }
+  ↪︎Find: Descendants matching type NavigationBar
+    Output: {
+      NavigationBar, {{0.0, 20.0}, {768.0, 44.0}}, identifier: 'proNotes.DocumentView'
+    }
+    ↪︎Find: Elements matching predicate '"proNotes.DocumentView" IN identifiers'
+      Output: {
+        NavigationBar, {{0.0, 20.0}, {768.0, 44.0}}, identifier: 'proNotes.DocumentView'
+      }
+      ↪︎Find: Descendants matching type TextField
+        Output: {
+          TextField, {{340.5, 25.5}, {87.0, 33.0}}, identifier: 'note_title', value: Note6
+        }
+        ↪︎Find: Elements matching predicate '"note_title" IN identifiers'
+          Output: {
+            TextField, {{340.5, 25.5}, {87.0, 33.0}}, identifier: 'note_title', value: Note6
+          }
+
+
