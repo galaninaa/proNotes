@@ -94,7 +94,7 @@ class MainPage: Page {
             }
             else {
                 XCTContext.runActivity(named: "iOS 9.3 is active") { _ in
-                    sleep(3)
+                    //sleep(3)
                     XCTAssertFalse(documentCell[name].waitForExistence(timeout: 10), "Document wasn't deleted")
                 }
             }
@@ -206,7 +206,6 @@ class MainPage: Page {
             }
             return self
         }
-        
     }
 }
 
@@ -314,9 +313,7 @@ class DocumentPage: Page {
     func renameDocument(newName: String) -> Self{
         XCTContext.runActivity(named: "Rename Document in document view") { _ in
             let textField = noteTitleTextField
-            //textField.tap()
             textField.clearAndEnterText(newName + "\n")
-            //returnSystemButton.tap()
             log("Document was successfully renamed in document view screen")
         }
         return self
@@ -360,7 +357,7 @@ class DocumentPage: Page {
         }
     }
     
-    //@discardableResult
+    @discardableResult
     func fullScreenOnValidation() -> Self {
         return XCTContext.runActivity(named: "Validate Full screen On mode") { _ in
             XCTAssertTrue(fullScreenOffButton.exists, "Full screen Off button wasn't found")
@@ -413,7 +410,7 @@ class DocumentPage: Page {
     
     @discardableResult
     func tapLayersButton() -> Self {
-        return XCTContext.runActivity(named: "Tap Add Sketch button") { _ in
+        return XCTContext.runActivity(named: "Tap Layers button") { _ in
             layerButton.tap()
             log("Layers button was tapped")
             return self
@@ -520,15 +517,25 @@ class Layers: DocumentPage {
         return XCTContext.runActivity(named: "Add Image Layer with photo") { _ in
             tapImage()
             app.tables.staticTexts["Photos"].tap()
-            if app.alerts.element.exists {
-                //app.alerts.element.collectionViews.buttons["Allow"].tap()
-                app.alerts.element.collectionViews.buttons["OK"].tap()
+            let okButton = app.alerts.buttons["OK"]
+            if okButton.exists {
+                okButton.tap()
             }
             app.tables.buttons["Moments"].tap()
             app.collectionViews["PhotosGridView"].cells.element(boundBy: 0).tap()
             return self
         }
     }
+    
+    @discardableResult
+    func validateImageLayer() -> Self {
+        return XCTContext.runActivity(named: "Validate Image Layer") { _ in
+            XCTAssertTrue(app/*@START_MENU_TOKEN@*/.scrollViews.otherElements["layerListView"]/*[[".scrollViews.otherElements[\"layerListView\"]",".otherElements[\"layerListView\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/.staticTexts["image"].exists, "Image doesn't exists")
+            XCTAssertEqual(app/*@START_MENU_TOKEN@*/.scrollViews.otherElements["layerListView"]/*[[".scrollViews.otherElements[\"layerListView\"]",".otherElements[\"layerListView\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/.cells.matching(identifier: "LayerTableViewCell").count, 1)
+            return self
+        }
+    }
+    
     @discardableResult
     func tapHideLayerButton() -> Self {
         return XCTContext.runActivity(named: "Tap Hide Layer button") { _ in

@@ -96,6 +96,7 @@ class AddLayerUITests: XCTestCase {
         XCTAssertEqual(tablesQuery.cells.count, 2)
         closeDocument()
         deleteDocument(name: documentName)
+        
     }
         
     }
